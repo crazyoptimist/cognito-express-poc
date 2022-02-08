@@ -1,0 +1,25 @@
+{
+  "name": "cognito-express-poc",
+  "version": "1.0.0",
+  "description": "Implements cognito authentication with express and typescript from scratch",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crazyoptimist/cognito-express-poc.git"
+  },
+  "keywords": [
+    "aws",
+    "cognito",
+    "node.js",
+    "typescript"
+  ],
+  "author": "CrazyOptimist <crazyoptimist@mail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/crazyoptimist/cognito-express-poc/issues"
+  },
+  "homepage": "https://github.com/crazyoptimist/cognito-express-poc#readme"
+}
