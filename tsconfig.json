@@ -5,6 +5,9 @@
     "module": "CommonJS",
     "outDir": "./dist",
     "baseUrl": "./src",
+    "paths": {
+      "*": ["*"]
+    },
     "removeComments": true,
     "incremental": true,
     "esModuleInterop": true
