@@ -59,6 +59,17 @@ class AuthController {
       return res.status(422).json({ errors: result.array() })
     }
     console.log('verify body is valid')
+
+    const { username, code } = req.body
+
+    const cognito = new CognitoService()
+    cognito.verifyAccount(username, code).then(success => {
+      if (success) {
+        return res.status(200).end()
+      } else {
+        return res.status(500).end()
+      }
+    })
     return res.status(200).end()
   }
 
