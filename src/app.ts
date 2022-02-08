@@ -14,6 +14,8 @@ class App {
     this.app = express()
     this.port = appInit.port;
 
+    // because sequence matters here, middlewares should be initialized first
+    this.middlewares(appInit.middlewares)
     this.routes(appInit.controllers)
   }
 
@@ -26,6 +28,12 @@ class App {
   private routes(controllers: Controller[]) {
     controllers.forEach(controller => {
       this.app.use(controller.path, controller.router)
+    })
+  }
+
+  private middlewares(middlewares: any) {
+    middlewares.forEach(middleware => {
+      this.app.use(middleware)
     })
   }
 }
