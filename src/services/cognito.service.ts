@@ -54,6 +54,27 @@ class CognitoService {
     }
   }
 
+  public async signInUser(username: string, password: string): Promise<boolean> {
+    const params = {
+      AuthFlow: 'USER_PASSWORD_AUTH',
+      ClientId: this.clientId,
+      AuthParameters: {
+        USERNAME: username,
+        PASSWORD: password,
+        SECRET_HASH: this.generateHash(username),
+      },
+    }
+
+    try {
+      const data = await this.cognitoIdentity.initiateAuth(params).promise()
+      console.log(data)
+      return true
+    } catch (error) {
+      console.log(error)
+      return false
+    }
+  }
+
   private generateHash(username: string): string {
     return crypto
       .createHmac('SHA256', this.clientSecret)
