@@ -53,9 +53,9 @@ class AuthController {
 
     const { username, password } = req.body
     const cognito = new CognitoService()
-    cognito.signInUser(username, password).then(success => {
-      if (success) {
-        res.status(200).end()
+    cognito.signInUser(username, password).then(result => {
+      if (result) {
+        res.status(200).json(result)
       } else {
         res.status(500).end()
       }

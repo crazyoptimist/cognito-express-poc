@@ -1,6 +1,17 @@
 import AWS from 'aws-sdk'
 import crypto from 'crypto'
 
+type AuthRes = {
+  ChallengeParameters: any
+  AuthenticationResult: {
+    AccessToken: string
+    ExpiresIn: number
+    TokenType: string
+    RefreshToken: string
+    IdToken: string
+  }
+}
+
 class CognitoService {
   private config = {
     region: 'us-west-2',
@@ -54,7 +65,7 @@ class CognitoService {
     }
   }
 
-  public async signInUser(username: string, password: string): Promise<boolean> {
+  public async signInUser(username: string, password: string): Promise<boolean | object> {
     const params = {
       AuthFlow: 'USER_PASSWORD_AUTH',
       ClientId: this.clientId,
@@ -67,8 +78,15 @@ class CognitoService {
 
     try {
       const data = await this.cognitoIdentity.initiateAuth(params).promise()
-      console.log(data)
-      return true
+      const {
+        AuthenticationResult: { AccessToken, ExpiresIn, TokenType, RefreshToken },
+      } = data as AuthRes
+      return {
+        AccessToken,
+        ExpiresIn,
+        TokenType,
+        RefreshToken,
+      }
     } catch (error) {
       console.log(error)
       return false
